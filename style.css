@@ -70,3 +70,8 @@ textarea {
   font-size: 16px;
   border: 1px solid #ddd;
 }
+.video-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}

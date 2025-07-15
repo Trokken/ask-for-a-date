@@ -12,7 +12,7 @@ noButton.addEventListener("mouseover", () => {
 
 yesForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Envoie du formulaire
+
   fetch(yesForm.action, {
     method: "POST",
     body: new FormData(yesForm),
@@ -23,5 +23,11 @@ yesForm.addEventListener("submit", (e) => {
     yesForm.style.display = "none";
     noButton.style.display = "none";
     thankYouMessage.classList.remove("hidden");
+
+    // Lancer la vidéo
+    const videoContainer = document.getElementById("videoContainer");
+    const ytVideo = document.getElementById("ytVideo");
+    ytVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+    videoContainer.classList.remove("hidden");
   });
 });
