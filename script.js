@@ -45,11 +45,15 @@ yesForm.addEventListener("submit", (e) => {
     yesForm.style.display = "none";
     noButton.style.display = "none";
     thankYouMessage.classList.remove("hidden");
-
-    // Lancer la vidéo
-    const videoContainer = document.getElementById("videoContainer");
-    const ytVideo = document.getElementById("ytVideo");
-    ytVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
-    videoContainer.classList.remove("hidden");
   });
+});
+
+// La vidéo démarre au clic (geste utilisateur) => son autorisé sur mobile
+const playButton = document.getElementById("playButton");
+playButton.addEventListener("click", () => {
+  const videoContainer = document.getElementById("videoContainer");
+  const ytVideo = document.getElementById("ytVideo");
+  ytVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&rel=0";
+  videoContainer.classList.remove("hidden");
+  playButton.classList.add("hidden");
 });
