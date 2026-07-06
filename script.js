@@ -32,8 +32,17 @@ noButton.addEventListener("click", (e) => {
   dodge();
 });
 
+function reveal() {
+  yesForm.style.display = "none";
+  noButton.style.display = "none";
+  thankYouMessage.classList.remove("hidden");
+}
+
 yesForm.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  // On affiche la surprise tout de suite, sans attendre l'envoi du mail
+  reveal();
 
   fetch(yesForm.action, {
     method: "POST",
@@ -41,15 +50,15 @@ yesForm.addEventListener("submit", (e) => {
     headers: {
       'Accept': 'application/json'
     }
-  }).then(() => {
-    yesForm.style.display = "none";
-    noButton.style.display = "none";
-    thankYouMessage.classList.remove("hidden");
+  }).catch((err) => console.error("Envoi Formspree échoué :", err));
+});
 
-    // Lancer la vidéo (muette pour autoriser l'autoplay sur mobile)
-    const videoContainer = document.getElementById("videoContainer");
-    const ytVideo = document.getElementById("ytVideo");
-    ytVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&rel=0";
-    videoContainer.classList.remove("hidden");
-  });
+// La vidéo démarre au clic (geste utilisateur) => son autorisé sur mobile
+const playButton = document.getElementById("playButton");
+playButton.addEventListener("click", () => {
+  const videoContainer = document.getElementById("videoContainer");
+  const ytVideo = document.getElementById("ytVideo");
+  ytVideo.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&rel=0";
+  videoContainer.classList.remove("hidden");
+  playButton.classList.add("hidden");
 });
