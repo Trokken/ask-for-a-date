@@ -2,12 +2,34 @@ const noButton = document.getElementById("noButton");
 const yesForm = document.getElementById("yesForm");
 const thankYouMessage = document.getElementById("thankYouMessage");
 
-noButton.addEventListener("mouseover", () => {
-  const offsetX = Math.floor(Math.random() * 200) - 100;
-  const offsetY = Math.floor(Math.random() * 200) - 100;
-  noButton.style.position = "relative";
-  noButton.style.left = `${offsetX}px`;
-  noButton.style.top = `${offsetY}px`;
+function dodge() {
+  const margin = 8;
+  const rect = noButton.getBoundingClientRect();
+  const maxX = window.innerWidth - rect.width - margin;
+  const maxY = window.innerHeight - rect.height - margin;
+
+  const x = Math.max(margin, Math.floor(Math.random() * (maxX - margin)) + margin);
+  const y = Math.max(margin, Math.floor(Math.random() * (maxY - margin)) + margin);
+
+  noButton.style.position = "fixed";
+  noButton.style.left = `${x}px`;
+  noButton.style.top = `${y}px`;
+  noButton.style.margin = "0";
+}
+
+// Desktop : le bouton fuit le curseur
+noButton.addEventListener("mouseover", dodge);
+
+// Mobile : esquive au toucher, avant que le tap ne devienne un clic
+noButton.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  dodge();
+}, { passive: false });
+
+// Sécurité : si malgré tout un clic passe, on esquive au lieu de rien faire
+noButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  dodge();
 });
 
 yesForm.addEventListener("submit", (e) => {
